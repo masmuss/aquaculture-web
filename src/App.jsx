@@ -1,9 +1,17 @@
-function App() {
+import { Route, Routes, Navigate } from 'react-router-dom'
+import { ProtectRoutes } from './hooks/protectedRoutes'
+import Home from './components/Pages/Home'
+import Login from './components/Pages/Login'
+
+export default function App() {
 	return (
-		<>
-			<div className="text-5xl font-semibold">Hello world</div>
-		</>
+		<Routes>
+			<Route path="/" element={<Navigate to="home" exact />} />
+			<Route path="/login" element={<Login />} />
+
+			<Route element={<ProtectRoutes />}>
+				<Route path="/home" element={<Home />} />
+			</Route>
+		</Routes>
 	)
 }
-
-export default App
