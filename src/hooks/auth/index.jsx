@@ -1,7 +1,7 @@
-import { createContext, useContext, useMemo } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-import api from '../../services/api'
+import api, { authenticatedApi } from '../../services/api'
 
 const UserContext = createContext()
 
@@ -10,19 +10,17 @@ export const UserProvider = ({ children }) => {
 	const [cookies, setCookies, removeCookie] = useCookies()
 
 	const login = async ({ email, password }) => {
-		const res = await api.post('/auth/login', {
-			email: email,
-			password: password
+		await api.post('auth/login', { email, password }).then(() => {
+			authenticatedApi.get('user').then(res => {
+				setCookies('token', res.data.token, { path: '/' })
+				setCookies('name', res.data.name, { path: '/' })
+				navigate('/home')
+			})
 		})
-
-		setCookies('token', res.data.token)
-		setCookies('name', res.data.data.name)
-
-		navigate('/home')
 	}
 
 	const logout = () => {
-		['token', 'name'].forEach(obj => removeCookie(obj))
+		;['token', 'name'].forEach(obj => removeCookie(obj))
 		navigate('/login')
 	}
 

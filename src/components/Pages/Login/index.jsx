@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useAuth } from '../../../hooks/auth'
 import { Navigate } from 'react-router-dom'
+import { Button, Label, TextInput } from 'flowbite-react'
 
 export default function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [errors, setErrors] = useState({})
 	const { login, cookies } = useAuth()
 
 	if (cookies.token) {
@@ -12,62 +14,73 @@ export default function Login() {
 	}
 
 	const handleLogin = () => {
-		login({ email, password })
+		login({ email, password }).catch(
+			err => err.response && setErrors(err.response.data.errors)
+		)
+
+		console.log(errors)
 	}
 
 	return (
-		<div className="flex h-screen flex-col bg-gray-100">
-			<div className="mx-2 my-20 grid place-items-center sm:my-auto">
-				<div className="w-11/12 rounded-lg bg-white p-12 px-6 py-10 shadow-md sm:w-8/12 sm:px-10 sm:py-6 md:w-6/12 lg:w-5/12 lg:shadow-lg 2xl:w-4/12">
-					<h2 className="text-center text-3xl font-semibold text-gray-800 lg:text-4xl">
-						Login
-					</h2>
-					<div className="mt-10">
-						<label
+		<div className="flex h-screen flex-col items-center justify-center bg-gray-100">
+			<div className="w-full space-y-8 rounded-lg bg-white p-6 shadow-xl dark:bg-gray-800 sm:p-8 lg:max-w-xl">
+				<h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+					Sign in
+				</h2>
+				<div className="mt-8 space-y-6">
+					<div>
+						<Label
 							htmlFor="email"
-							className="block text-xs font-semibold uppercase text-gray-600"
+							className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 						>
-							E-mail
-						</label>
-						<input
+							Your email
+						</Label>
+						<TextInput
 							type="email"
 							name="email"
-							placeholder="e-mail address"
-							autoComplete="email"
-							className="mt-2 block w-full appearance-none border-b-2 border-gray-100 px-1 py-3 text-gray-800 focus:border-gray-200 focus:text-gray-500 focus:outline-none"
-							onChange={e => setEmail(e.target.value)}
+							placeholder="johndoe@example.com"
+							onChange={ e => setEmail(e.target.value) }
+							color={errors.email && 'failure'}
+							helperText={
+								errors.email && (
+									<div className="mt-2 text-sm text-red-500">
+										{errors.email}
+									</div>
+								)
+							}
 						/>
-						<label
+					</div>
+					<div>
+						<Label
 							htmlFor="password"
-							className="mt-2 block text-xs font-semibold uppercase text-gray-600"
+							className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 						>
-							Password
-						</label>
-						<input
+							Your password
+						</Label>
+						<TextInput
 							type="password"
 							name="password"
-							placeholder="password"
-							className="mb-4 mt-2 block w-full appearance-none border-b-2 border-gray-100 px-1 py-3 text-gray-800 focus:border-gray-200 focus:text-gray-500 focus:outline-none"
-							onChange={e => setPassword(e.target.value)}
+							id="password"
+							placeholder="••••••••"
+							onChange={ e => setPassword(e.target.value) }
+							color={errors.password && 'failure'}
+							helperText={
+								errors.password && (
+									<div className="mt-2 text-sm text-red-500">
+										{errors.password}
+									</div>
+								)
+							}
 						/>
-						<button
-							onClick={handleLogin}
-							type="submit"
-							className="mt-10 w-full rounded-sm bg-gray-800 py-3 font-medium uppercase text-white hover:bg-gray-700 hover:shadow-none focus:outline-none"
-						>
-							Login
-						</button>
-						<div className="mt-8 text-center text-sm sm:mb-4 sm:flex sm:flex-wrap">
-							<a href="#" className="flex-2 underline">
-								Forgot password?
-							</a>
-							<p className="text-md mx-4 my-1 flex-1 text-gray-500 sm:my-auto">
-								or
-							</p>
-							<a href="#" className="flex-2 underline">
-								Create an Account
-							</a>
-						</div>
+					</div>
+					<Button type="submit" onClick={handleLogin}>
+						Login to your account
+					</Button>
+					<div className="text-sm font-medium text-gray-900 dark:text-white">
+						Not registered yet?{' '}
+						<a className="text-blue-600 hover:underline dark:text-blue-500">
+							Create account
+						</a>
 					</div>
 				</div>
 			</div>
