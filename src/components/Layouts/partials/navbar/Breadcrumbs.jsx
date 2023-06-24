@@ -11,22 +11,13 @@ const Breadcrumbs = () => {
 				.slice(1)
 				.split('/')
 				.map((item, index) => {
-					if (index === 0) {
-						return (
-							<Breadcrumb.Item key={index}>
-								<Link to="/">Home</Link>
-							</Breadcrumb.Item>
-						)
-					} else {
-						return (
-							<Breadcrumb.Item key={index}>
-								<Link to={`/${item}`}>
-									{item.charAt(0).toUpperCase() +
-										item.slice(1)}
-								</Link>
-							</Breadcrumb.Item>
-						)
-					}
+					return (
+						<Breadcrumb.Item key={index}>
+							<Link to={`/${item}`}>
+								{item.charAt(0).toUpperCase() + item.slice(1)}
+							</Link>
+						</Breadcrumb.Item>
+					)
 				})}
 		</Breadcrumb>
 	)

@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
 	const login = async ({ email, password }) => {
 		await api.post('auth/login', { email, password }).then(res => {
 			setCookies('token', res.data.token)
-			navigate('/home')
+			navigate('/dashboard')
 
 			authenticatedApi
 				.get('user')

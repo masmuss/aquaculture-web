@@ -1,13 +1,6 @@
 import { Sidebar } from 'flowbite-react'
-import {
-	HiChartPie,
-	HiInbox,
-	HiShoppingBag,
-	HiTable,
-	HiUser,
-	HiViewBoards,
-	HiArrowSmRight
-} from 'react-icons/hi'
+import { Link } from 'react-router-dom'
+import { MdOutlineWater, MdOutlineDashboard } from 'react-icons/md'
 
 const Aside = () => {
 	return (
@@ -24,27 +17,14 @@ const Aside = () => {
 			</Sidebar.Logo>
 			<Sidebar.Items className="px-">
 				<Sidebar.ItemGroup>
-					<Sidebar.Item href="#" icon={HiChartPie}>
-						<p>Dashboard</p>
-					</Sidebar.Item>
-					<Sidebar.Item href="#" icon={HiViewBoards}>
-						<p>Kanban</p>
-					</Sidebar.Item>
-					<Sidebar.Item href="#" icon={HiInbox}>
-						<p>Inbox</p>
-					</Sidebar.Item>
-					<Sidebar.Item href="#" icon={HiUser}>
-						<p>Users</p>
-					</Sidebar.Item>
-					<Sidebar.Item href="#" icon={HiShoppingBag}>
-						<p>Products</p>
-					</Sidebar.Item>
-					<Sidebar.Item href="#" icon={HiArrowSmRight}>
-						<p>Sign In</p>
-					</Sidebar.Item>
-					<Sidebar.Item href="#" icon={HiTable}>
-						<p>Sign Up</p>
-					</Sidebar.Item>
+					<Link to="/dashboard">
+						<Sidebar.Item icon={MdOutlineDashboard}>
+							Dashboard
+						</Sidebar.Item>
+					</Link>
+					<Link to="/ponds">
+						<Sidebar.Item icon={MdOutlineWater}>Ponds</Sidebar.Item>
+					</Link>
 				</Sidebar.ItemGroup>
 			</Sidebar.Items>
 		</Sidebar>

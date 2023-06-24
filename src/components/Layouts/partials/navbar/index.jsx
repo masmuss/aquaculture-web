@@ -20,7 +20,7 @@ const Navbar = () => {
 		<nav className="flex w-full items-center justify-between border-b-2 bg-gray-50 px-5 py-6">
 			<div>
 				<Breadcrumbs />
-				<p className="text-4xl font-bold">
+				<p className="mt-2 text-4xl font-bold">
 					{location.pathname.slice(1).charAt(0).toUpperCase() +
 						location.pathname.slice(2)}
 				</p>
