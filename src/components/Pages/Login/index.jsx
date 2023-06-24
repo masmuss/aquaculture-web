@@ -7,16 +7,20 @@ export default function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [errors, setErrors] = useState({})
+	const [message, setMessage] = useState('')
 	const { login, cookies } = useAuth()
 
-	if (cookies.token) {
+	if (cookies?.token) {
 		return <Navigate to="/home" />
 	}
 
 	const handleLogin = () => {
-		login({ email, password }).catch(
-			err => err.response && setErrors(err.response.data.errors)
-		)
+		login({ email, password }).catch(err => {
+			if (err.response) {
+				setErrors(err.response.data.errors)
+				setMessage(err.response.data.message)
+			}
+		})
 
 		console.log(errors)
 	}
@@ -28,6 +32,11 @@ export default function Login() {
 					Sign in
 				</h2>
 				<div className="mt-8 space-y-6">
+					{message && (
+						<div className="relative rounded border border-red-400 bg-red-100 px-4 py-3 text-sm text-red-700">
+							<span className="block sm:inline">{message}</span>
+						</div>
+					)}
 					<div>
 						<Label
 							htmlFor="email"
@@ -39,13 +48,13 @@ export default function Login() {
 							type="email"
 							name="email"
 							placeholder="johndoe@example.com"
-							onChange={ e => setEmail(e.target.value) }
-							color={errors.email && 'failure'}
+							onChange={e => setEmail(e.target.value)}
+							color={errors?.email && 'failure'}
 							helperText={
-								errors.email && (
-									<div className="mt-2 text-sm text-red-500">
-										{errors.email}
-									</div>
+								errors?.email && (
+									<span className="mt-2 text-sm text-red-500">
+										{errors?.email}
+									</span>
 								)
 							}
 						/>
@@ -62,13 +71,13 @@ export default function Login() {
 							name="password"
 							id="password"
 							placeholder="••••••••"
-							onChange={ e => setPassword(e.target.value) }
-							color={errors.password && 'failure'}
+							onChange={e => setPassword(e.target.value)}
+							color={errors?.password && 'failure'}
 							helperText={
-								errors.password && (
-									<div className="mt-2 text-sm text-red-500">
-										{errors.password}
-									</div>
+								errors?.password && (
+									<span className="mt-2 text-sm text-red-500">
+										{errors?.password}
+									</span>
 								)
 							}
 						/>

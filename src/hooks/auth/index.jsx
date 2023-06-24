@@ -1,26 +1,34 @@
-import { createContext, useContext, useMemo, useState } from 'react'
+import { createContext, useContext, useMemo } from 'react'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import api, { authenticatedApi } from '../../services/api'
 
 const UserContext = createContext()
 
+// eslint-disable-next-line react/prop-types
 export const UserProvider = ({ children }) => {
 	const navigate = useNavigate()
 	const [cookies, setCookies, removeCookie] = useCookies()
 
 	const login = async ({ email, password }) => {
-		await api.post('auth/login', { email, password }).then(() => {
-			authenticatedApi.get('user').then(res => {
-				setCookies('token', res.data.token, { path: '/' })
-				setCookies('name', res.data.name, { path: '/' })
-				navigate('/home')
-			})
+		await api.post('auth/login', { email, password }).then(res => {
+			setCookies('token', res.data.token)
+			navigate('/home')
+
+			authenticatedApi
+				.get('user')
+				.then(() => {
+					setCookies('user', res.data.data)
+				})
+				.catch(() => {
+					navigate('/login')
+					removeCookie('token')
+				})
 		})
 	}
 
 	const logout = () => {
-		;['token', 'name'].forEach(obj => removeCookie(obj))
+		['token', 'name'].forEach(obj => removeCookie(obj))
 		navigate('/login')
 	}
 
