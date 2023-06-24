@@ -4,10 +4,8 @@ import { Link, useParams } from 'react-router-dom'
 
 const PondList = () => {
 	const { ponds, loading, error } = usePonds()
-	const { id } = useParams()
-	const pond = ponds.find(pond => pond.id === id)
-
-	console.log(pond)
+	const { hardware_id } = useParams()
+	const pond = ponds.find(pond => pond.hardware_id == hardware_id)
 
 	if (error) {
 		return <p>{error}</p>
@@ -19,8 +17,14 @@ const PondList = () => {
 				<p>Loading...</p>
 			) : (
 				pond.pools.map(pool => (
-					<Link to={`/pools/${pool.id}`} key={pool.id}>
-						<Card className="w-full">
+					<Link
+						to={`/pools/${pond.hardware_id}/${pool.id}`}
+						key={pool.id}
+					>
+						<Card
+							className="w-full border-2 border-gray-200 transition-all hover:bg-gray-100"
+							key={pool.id}
+						>
 							<h5 className="flex items-center gap-3 text-2xl font-bold tracking-wide text-gray-700 dark:text-white">
 								<p>{pool.name}</p>
 							</h5>

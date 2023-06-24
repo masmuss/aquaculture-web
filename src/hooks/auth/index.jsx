@@ -13,12 +13,17 @@ export const UserProvider = ({ children }) => {
 	const login = async ({ email, password }) => {
 		await api.post('auth/login', { email, password }).then(res => {
 			setCookies('token', res.data.token)
-			navigate('/dashboard')
 
 			authenticatedApi
 				.get('user')
 				.then(() => {
 					setCookies('user', res.data.data)
+
+					if (res.data.data.is_admin === 1) {
+						navigate('/dashboard')
+						return
+					}
+					navigate('/ponds')
 				})
 				.catch(() => {
 					navigate('/login')
@@ -28,7 +33,7 @@ export const UserProvider = ({ children }) => {
 	}
 
 	const logout = () => {
-		['token', 'name'].forEach(obj => removeCookie(obj))
+		;['token', 'name'].forEach(obj => removeCookie(obj))
 		navigate('/login')
 	}
 

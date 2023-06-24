@@ -29,15 +29,15 @@ const Navbar = () => {
 				label={
 					<div className="flex flex-wrap items-center gap-3">
 						<Avatar rounded />
-						<p>Welcome back, {user.name}!</p>
+						<p>Welcome back, {user?.name}!</p>
 					</div>
 				}
 				inline
 			>
 				<Dropdown.Header>
-					<span className="block text-sm">{user.name}</span>
+					<span className="block text-sm">{user?.name}</span>
 					<span className="block truncate text-sm font-medium">
-						{user.email}
+						{user?.email}
 					</span>
 				</Dropdown.Header>
 				<Dropdown.Item icon={HiLogout} onClick={destroySession}>

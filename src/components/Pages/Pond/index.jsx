@@ -16,8 +16,8 @@ const Pond = () => {
 				<p>Loading...</p>
 			) : (
 				ponds.map(pond => (
-					<Link to={`/ponds/${pond.id}`} key={pond.id}>
-						<Card className="w-full border-2 border-gray-200">
+					<Link to={`/ponds/${pond.hardware_id}`} key={pond.id}>
+						<Card className="w-full border-2 border-gray-200 transition-all hover:bg-gray-100">
 							<h5 className="flex items-center gap-3 text-2xl font-bold tracking-wide text-gray-700 dark:text-white">
 								<HiQrcode
 									size="1.5em"
