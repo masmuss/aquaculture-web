@@ -3,19 +3,21 @@ import { useAuth } from '../../../hooks/auth'
 import { Navigate, Link } from 'react-router-dom'
 import { Button, Label, TextInput } from 'flowbite-react'
 
-export default function Login() {
+export default function Register() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [phone_number, setPhone] = useState('')
+	const [name, setName] = useState('')
 	const [errors, setErrors] = useState({})
 	const [message, setMessage] = useState('')
-	const { login, cookies } = useAuth()
+	const { register, cookies } = useAuth()
 
 	if (cookies?.token) {
 		return <Navigate to="/home" />
 	}
 
-	const handleLogin = () => {
-		login({ email, password }).catch(err => {
+	const handleRegister = () => {
+		register({ name, email, phone_number, password }).catch(err => {
 			if (err.response) {
 				setErrors(err.response.data.errors)
 				setMessage(err.response.data.message)
@@ -29,7 +31,7 @@ export default function Login() {
 		<div className="flex h-screen flex-col items-center justify-center bg-gray-100">
 			<div className="w-full space-y-8 rounded-lg bg-white p-6 shadow-xl dark:bg-gray-800 sm:p-8 lg:max-w-xl">
 				<h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-					Sign in
+					Sign Up
 				</h2>
 				<div className="mt-8 space-y-6">
 					{message && (
@@ -39,10 +41,32 @@ export default function Login() {
 					)}
 					<div>
 						<Label
+							htmlFor="name"
+							className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+						>
+							Your Name
+						</Label>
+						<TextInput
+							type="text"
+							name="name"
+							placeholder="Your Name"
+							onChange={e => setName(e.target.value)}
+							color={errors?.name && 'failure'}
+							helperText={
+								errors?.name && (
+									<span className="mt-2 text-sm text-red-500">
+										{errors?.name}
+									</span>
+								)
+							}
+						/>
+					</div>
+					<div>
+						<Label
 							htmlFor="email"
 							className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 						>
-							Your email
+							Your Email
 						</Label>
 						<TextInput
 							type="email"
@@ -61,10 +85,32 @@ export default function Login() {
 					</div>
 					<div>
 						<Label
+							htmlFor="phone"
+							className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+						>
+							Your Phone Number
+						</Label>
+						<TextInput
+							type="text"
+							name="phone"
+							placeholder="08xxxxxxx"
+							onChange={e => setPhone(e.target.value)}
+							color={errors?.phone_number && 'failure'}
+							helperText={
+								errors?.phone_number && (
+									<span className="mt-2 text-sm text-red-500">
+										{errors?.phone_number}
+									</span>
+								)
+							}
+						/>
+					</div>
+					<div>
+						<Label
 							htmlFor="password"
 							className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 						>
-							Your password
+							Your Password
 						</Label>
 						<TextInput
 							type="password"
@@ -82,14 +128,16 @@ export default function Login() {
 							}
 						/>
 					</div>
-					<Button type="submit" onClick={handleLogin}>
-						Login to your account
+					<Button type="submit" onClick={handleRegister}>
+						Create Account
 					</Button>
 					<div className="text-sm font-medium text-gray-900 dark:text-white">
-						Not registered yet?{' '}
-						<Link to="/register" className="text-blue-600 hover:underline dark:text-blue-500">
-							Create account
+						Has Account?{' '}
+                
+						<Link to="/login" className="text-blue-600 hover:underline dark:text-blue-500">
+							Sign In
 						</Link>
+
 					</div>
 				</div>
 			</div>
