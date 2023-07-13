@@ -15,11 +15,11 @@ export const usePonds = () => {
 			setError(error)
 			setLoading(false)
 		}
-    }, [])
-    
-    useEffect(() => {
-        fetchPonds()
-    }, [fetchPonds])
+	}, [])
 
-    return { ponds, loading, error }
+	useEffect(() => {
+		fetchPonds()
+	}, [fetchPonds])
+
+	return { ponds, loading, error }
 }

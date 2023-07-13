@@ -133,11 +133,12 @@ export default function Register() {
 					</Button>
 					<div className="text-sm font-medium text-gray-900 dark:text-white">
 						Has Account?{' '}
-                
-						<Link to="/login" className="text-blue-600 hover:underline dark:text-blue-500">
+						<Link
+							to="/login"
+							className="text-blue-600 hover:underline dark:text-blue-500"
+						>
 							Sign In
 						</Link>
-
 					</div>
 				</div>
 			</div>

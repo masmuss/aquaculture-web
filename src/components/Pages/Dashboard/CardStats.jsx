@@ -1,11 +1,7 @@
-import { Card } from "flowbite-react"
+import { Card } from 'flowbite-react'
 
 const CardStats = () => {
-  return (
-      <Card>
-          
-    </Card>
-  )
+	return <Card></Card>
 }
 
 export default CardStats

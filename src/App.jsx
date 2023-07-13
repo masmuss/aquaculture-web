@@ -1,6 +1,5 @@
-import { Route, Routes, Navigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { ProtectRoutes } from './hooks/protectedRoutes'
-import { Cookies } from 'react-cookie'
 import Dashboard from './components/Pages/Dashboard'
 import Login from './components/Pages/Login'
 import Pond from './components/Pages/Pond'
@@ -11,33 +10,33 @@ import CreatePonds from './components/Pages/Pond/CreatePonds'
 import Register from './components/Pages/Register'
 import Home from './components/Pages/Home'
 
+import { Flowbite } from 'flowbite-react'
+import flowbiteTheme from './flowbiteTheme'
+
 export default function App() {
-	const cookie = new Cookies()
-	const user = cookie.get('user')
-
 	return (
-		<Routes>
-			<Route
-				path="/"
-				element={
-				<Home />
-				}
-			/>
-			<Route path="/login" element={<Login />} />
-			<Route path="/register" element={<Register />} />
+		<Flowbite theme={{ theme: flowbiteTheme }}>
+			<Routes>
+				<Route path="/" index element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
 
-			<Route element={<ProtectRoutes />}>
-				<Route path="/dashboard" element={<Dashboard />} />
-				<Route path="/users" element={<Users />} />
+				<Route element={<ProtectRoutes />}>
+					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/users" element={<Users />} />
 
-				<Route path="/ponds">
-					<Route path="" element={<Pond />} />
-					<Route path="/ponds/:hardware_id" element={<PondList />} />
-					<Route path="/ponds/create" element={<CreatePonds/>} />
+					<Route path="/ponds">
+						<Route path="" element={<Pond />} />
+						<Route
+							path="/ponds/:hardware_id"
+							element={<PondList />}
+						/>
+						<Route path="/ponds/create" element={<CreatePonds />} />
+					</Route>
+
+					<Route path="/pools/:hardware_id/:id" element={<Pool />} />
 				</Route>
-
-				<Route path="/pools/:hardware_id/:id" element={<Pool />} />
-			</Route>
-		</Routes>
+			</Routes>
+		</Flowbite>
 	)
 }

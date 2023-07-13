@@ -40,7 +40,6 @@ const Aside = () => {
 					<Link to="/ponds">
 						<Sidebar.Item icon={MdOutlineWater}>Ponds</Sidebar.Item>
 					</Link>
-					<Button onClick={destroySession}>Sign out</Button>
 					{user?.is_admin === 1 && (
 						<Link to="/users">
 							<Sidebar.Item icon={MdOutlinePeople}>
@@ -50,6 +49,9 @@ const Aside = () => {
 					)}
 				</Sidebar.ItemGroup>
 			</Sidebar.Items>
+			<Button onClick={destroySession} className="block w-full">
+				Sign out
+			</Button>
 		</Sidebar>
 	)
 }

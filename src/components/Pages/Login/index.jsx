@@ -87,7 +87,10 @@ export default function Login() {
 					</Button>
 					<div className="text-sm font-medium text-gray-900 dark:text-white">
 						Not registered yet?{' '}
-						<Link to="/register" className="text-blue-600 hover:underline dark:text-blue-500">
+						<Link
+							to="/register"
+							className="text-blue-600 hover:underline dark:text-blue-500"
+						>
 							Create account
 						</Link>
 					</div>

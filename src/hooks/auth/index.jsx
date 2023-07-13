@@ -32,14 +32,16 @@ export const UserProvider = ({ children }) => {
 		})
 	}
 
-	const register =  async ({name, email, phone_number, password}) => {
-		await api.post('auth/register', {name, email, phone_number, password}).then(res => {
-			navigate('/login')
-		})
+	const register = async ({ name, email, phone_number, password }) => {
+		await api
+			.post('auth/register', { name, email, phone_number, password })
+			.then(res => {
+				navigate('/login')
+			})
 	}
-	
+
 	const logout = () => {
-		['token', 'name'].forEach(obj => removeCookie(obj))
+		;['token', 'name'].forEach(obj => removeCookie(obj))
 		navigate('/login')
 	}
 
