@@ -8,6 +8,8 @@ import Pool from './components/Pages/Pool'
 import PondList from './components/Pages/Pond/PondList'
 import Users from './components/Pages/Users'
 import CreatePonds from './components/Pages/Pond/CreatePonds'
+import Register from './components/Pages/Register'
+import Home from './components/Pages/Home'
 
 export default function App() {
 	const cookie = new Cookies()
@@ -18,13 +20,11 @@ export default function App() {
 			<Route
 				path="/"
 				element={
-					<Navigate
-						to={user?.is_admin === 1 ? 'dashboard' : 'ponds'}
-						exact
-					/>
+				<Home />
 				}
 			/>
 			<Route path="/login" element={<Login />} />
+			<Route path="/register" element={<Register />} />
 
 			<Route element={<ProtectRoutes />}>
 				<Route path="/dashboard" element={<Dashboard />} />
