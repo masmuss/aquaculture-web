@@ -1,11 +1,15 @@
 import { Card } from 'flowbite-react'
 import { usePonds } from '../../../hooks/ponds'
 import { Link } from 'react-router-dom'
-import { HiQrcode, HiLocationMarker, HiPencil } from 'react-icons/hi'
+import { HiQrcode, HiLocationMarker, HiPencil, HiUser } from 'react-icons/hi'
 import NavbarSidebarLayout from '../../Layouts/NavbarSidebarLayout'
+
+import { Cookies } from 'react-cookie'
 
 const Pond = () => {
 	const { ponds, loading, error } = usePonds()
+	const cookie = new Cookies()
+	const user = cookie.get('user')
 
 	if (error) {
 		return <p>{error}</p>
@@ -42,6 +46,17 @@ const Pond = () => {
 										<p>{pond.hardware_id}</p>
 									</h5>
 									<ul className="space-y-3">
+										{user?.is_admin === 1 && (
+											<li className="flex items-center space-x-3">
+												<span className="flex items-center gap-2 text-base font-normal leading-tight text-gray-700 dark:text-gray-400">
+													<HiUser
+														className="text-gray-800"
+														size="1.2em"
+													/>
+													{pond.user.name}
+												</span>
+											</li>
+										)}
 										<li className="flex items-center space-x-3">
 											<span className="flex items-center gap-2 text-base font-normal leading-tight text-gray-700 dark:text-gray-400">
 												<HiPencil

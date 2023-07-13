@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authenticatedApi } from '../../../services/api'
+import { Button, TextInput, Label } from 'flowbite-react'
 import NavbarSidebarLayout from '../../Layouts/NavbarSidebarLayout'
 
 const CreatePonds = () => {
@@ -10,29 +11,27 @@ const CreatePonds = () => {
 		name: '',
 		address: ''
 	})
+	const [errors, setErrors] = useState({})
+	const [message, setMessage] = useState('')
 
 	const handleInput = e => {
-		let name = e.target.name
-		let value = e.target.value
-
-		if (name === 'hardware_id') {
-			setInput({ ...input, hardware_id: value })
-		} else if (name === 'name') {
-			setInput({ ...input, name: value })
-		} else if (name === 'address') {
-			setInput({ ...input, address: value })
-		}
+		setInput({
+			...input,
+			[e.target.name]: e.target.value
+		})
 	}
 
 	const handleSubmit = () => {
 		authenticatedApi
-			.post('http://127.0.0.1:8000/api/ponds', input)
-			.then(res => {
-				console.log(res)
+			.post('ponds', input)
+			.then(() => {
 				navigate('/ponds')
 			})
 			.catch(err => {
-				console.log(err)
+				if (err.response) {
+					setErrors(err.response.data.errors)
+					setMessage(err.response.data.message)
+				}
 			})
 
 		setInput({
@@ -48,55 +47,70 @@ const CreatePonds = () => {
 				<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
 					Tambahkan Ponds
 				</h5>
-				<form onSubmit={handleSubmit}>
-					<div className="mb-6">
-						<label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-							Hardware ID
-						</label>
-						<input
-							type="text"
-							className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-							name="hardware_id"
-							value={input.hardware_id}
-							onChange={handleInput}
-						/>
+				{message && (
+					<div className="relative mb-3 rounded border border-red-400 bg-red-100 px-4 py-3 text-sm text-red-700">
+						<span className="block sm:inline">{message}</span>
 					</div>
+				)}
+				<div className="mb-3">
+					<Label htmlFor="hardware_id">Hardware ID</Label>
+					<TextInput
+						name="hardware_id"
+						placeholder="A30.1"
+						value={input.hardware_id}
+						onChange={handleInput}
+						color={errors?.hardware_id && 'failure'}
+						helperText={
+							errors?.hardware_id && (
+								<span className="mt-2 text-sm text-red-500">
+									{errors?.hardware_id}
+								</span>
+							)
+						}
+					/>
+				</div>
 
-					<div className="mb-6">
-						<label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-							Kolam
-						</label>
-						<input
-							type="text"
-							className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-							name="name"
-							value={input.name}
-							onChange={handleInput}
-						/>
-					</div>
+				<div className="mb-3">
+					<Label htmlFor="name">Nama Tambak</Label>
+					<TextInput
+						type="text"
+						placeholder="Tambak A30"
+						name="name"
+						value={input.name}
+						onChange={handleInput}
+						color={errors?.name && 'failure'}
+						helperText={
+							errors?.name && (
+								<span className="mt-2 text-sm text-red-500">
+									{errors?.name}
+								</span>
+							)
+						}
+					/>
+				</div>
 
-					<div className="mb-6">
-						<label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-							Alamat
-						</label>
-						<input
-							type="text"
-							className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-							name="address"
-							value={input.address}
-							onChange={handleInput}
-						/>
-					</div>
+				<div className="mb-3">
+					<Label htmlFor="address">Alamat</Label>
+					<TextInput
+						type="text"
+						placeholder="Jl. Raya Bogor"
+						name="address"
+						value={input.address}
+						onChange={handleInput}
+						color={errors?.address && 'failure'}
+						helperText={
+							errors?.address && (
+								<span className="mt-2 text-sm text-red-500">
+									{errors?.address}
+								</span>
+							)
+						}
+					/>
+				</div>
 
-					<div className="flex justify-end">
-						<button
-							type="submit"
-							className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto"
-						>
-							Submit
-						</button>
-					</div>
-				</form>
+				<div className="flex justify-end">
+					<Button onClick={handleSubmit}>Add Pond</Button>
+				</div>
 			</div>
 		</NavbarSidebarLayout>
 	)

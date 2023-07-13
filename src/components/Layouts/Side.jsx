@@ -73,7 +73,6 @@ const ExampleSidebar = function () {
 						</Sidebar.ItemGroup>
 						<Sidebar.ItemGroup>
 							<Sidebar.Item
-								href="https://github.com/themesberg/flowbite-react/issues"
 								icon={HiLogout}
 								onClick={destroySession}
 							>
