@@ -1,6 +1,7 @@
 import Aside from './partials/aside'
 import Navbar from './partials/navbar'
 
+// eslint-disable-next-line react/prop-types
 const AuthenticatedLayout = ({ children }) => {
 	return (
 		<div className="flex w-full">

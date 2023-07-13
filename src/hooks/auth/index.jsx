@@ -39,7 +39,7 @@ export const UserProvider = ({ children }) => {
 	}
 	
 	const logout = () => {
-		;['token', 'name'].forEach(obj => removeCookie(obj))
+		['token', 'name'].forEach(obj => removeCookie(obj))
 		navigate('/login')
 	}
 
