@@ -3,7 +3,7 @@ import { usePools } from '../../../hooks/pools'
 import { Table } from 'flowbite-react'
 
 const Pool = () => {
-	const { hardware_id, id } = useParams()
+	const { hardware_id } = useParams()
 	const { pools, loading, error } = usePools()
 
 	if (error) {

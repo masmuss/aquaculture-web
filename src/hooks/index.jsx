@@ -1,6 +1,7 @@
 import { UserProvider } from './auth'
 
-const AppProvider = ({ children }) => (
+// eslint-disable-next-line react/prop-types
+const AppProvider = ({ children  }) => (
 	<>
 		<UserProvider>{children}</UserProvider>
 	</>
