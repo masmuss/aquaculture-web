@@ -1,5 +1,7 @@
-import { Sidebar } from 'flowbite-react'
+import { Sidebar, Button } from 'flowbite-react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../../../hooks/auth'
+
 import {
 	MdOutlineWater,
 	MdOutlineDashboard,
@@ -10,6 +12,11 @@ import { Cookies } from 'react-cookie'
 const Aside = () => {
 	const cookie = new Cookies()
 	const user = cookie.get('user')
+	const { logout } = useAuth()
+
+	const destroySession = () => {
+		logout()
+	}
 
 	return (
 		<Sidebar className="h-screen w-1/6 border-r-2">
@@ -25,16 +32,15 @@ const Aside = () => {
 			</Sidebar.Logo>
 			<Sidebar.Items className="px-">
 				<Sidebar.ItemGroup>
-					{user?.is_admin === 1 && (
-						<Link to="/dashboard">
-							<Sidebar.Item icon={MdOutlineDashboard}>
-								Dashboard
-							</Sidebar.Item>
-						</Link>
-					)}
+					<Link to="/dashboard">
+						<Sidebar.Item icon={MdOutlineDashboard}>
+							Dashboard
+						</Sidebar.Item>
+					</Link>
 					<Link to="/ponds">
 						<Sidebar.Item icon={MdOutlineWater}>Ponds</Sidebar.Item>
 					</Link>
+					<Button onClick={destroySession}>Sign out</Button>
 					{user?.is_admin === 1 && (
 						<Link to="/users">
 							<Sidebar.Item icon={MdOutlinePeople}>
