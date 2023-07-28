@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { ProtectRoutes } from './hooks/protectedRoutes'
 import { Cookies } from 'react-cookie'
