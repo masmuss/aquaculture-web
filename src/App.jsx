@@ -6,7 +6,7 @@ import Pond from './components/Pages/Pond'
 import Pool from './components/Pages/Pool'
 import PondList from './components/Pages/Pond/PondList'
 import Users from './components/Pages/Users'
-import CreatePonds from './components/Pages/Pond/CreatePonds'
+import FormPonds from './components/Pages/Pond/FormPonds'
 import Register from './components/Pages/Register'
 import Home from './components/Pages/Home'
 
@@ -24,7 +24,8 @@ export default function App() {
 				<Route path="/ponds">
 					<Route path="" element={<Pond />} />
 					<Route path="/ponds/:hardware_id" element={<PondList />} />
-					<Route path="/ponds/create" element={<CreatePonds />} />
+					<Route path="/ponds/create" element={<FormPonds />} />
+					{/* <Route path="/ponds/edit/:pond_id" element={<FormPonds />} /> */}
 				</Route>
 
 				<Route path="/pools/:hardware_id/:id" element={<Pool />} />

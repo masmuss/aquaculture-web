@@ -4,8 +4,9 @@ import { authenticatedApi } from '../../../services/api'
 import { Button, TextInput, Label } from 'flowbite-react'
 import NavbarSidebarLayout from '../../Layouts/NavbarSidebarLayout'
 
-const CreatePonds = () => {
+const FormPonds = () => {
 	let navigate = useNavigate()
+
 	const [input, setInput] = useState({
 		hardware_id: '',
 		name: '',
@@ -116,4 +117,4 @@ const CreatePonds = () => {
 	)
 }
 
-export default CreatePonds
+export default FormPonds
