@@ -11,7 +11,7 @@ export default function Login() {
 	const { login, cookies } = useAuth()
 
 	if (cookies?.token) {
-		return <Navigate to="/home" />
+		return <Navigate to="/dashboard" />
 	}
 
 	const handleLogin = () => {

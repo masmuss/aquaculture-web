@@ -39,7 +39,7 @@ const Pond = () => {
 					type="button"
 					className="mb-2 mr-5 mt-10 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 				>
-					Tambah
+					Tambah Tambak
 				</Link>
 			</div>
 			<div className="grid-rows-auto mx-5 mt-3 grid grid-cols-4 gap-4">
@@ -58,12 +58,12 @@ const Pond = () => {
 										<p>{pond.hardware_id}</p>
 									</div>
 									<div className="flex gap-2">
-										{/* <Link to={`/ponds/edit/${pond?.id}`}>
+										<Link to={`/ponds/edit/${pond?.id}`}>
 											<HiPencil
 												className="text-green-500 hover:text-green-600"
 												size="1.5em"
 											/>
-										</Link> */}
+										</Link>
 										<HiArchiveBoxArrowDown
 											className="text-2xl text-red-600 hover:text-red-700"
 											onClick={() =>

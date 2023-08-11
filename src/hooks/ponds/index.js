@@ -17,9 +17,20 @@ export const usePonds = () => {
 		}
 	}, [])
 
+	const fetchPondsById = useCallback( async (id) => {
+		try {
+			const { data } = await authenticatedApi.get(`/ponds/${id}`)
+			setPonds(data)
+			setLoading(false)
+		} catch (error) {
+			setError(error)
+			setLoading(false)
+		}
+	})
+
 	useEffect(() => {
 		fetchPonds()
 	}, [fetchPonds])
 
-	return { ponds, loading, error }
+	return { ponds, loading, error, fetchPondsById }
 }

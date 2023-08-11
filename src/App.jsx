@@ -9,6 +9,7 @@ import Users from './components/Pages/Users'
 import FormPonds from './components/Pages/Pond/FormPonds'
 import Register from './components/Pages/Register'
 import Home from './components/Pages/Home'
+import FormPool from './components/Pages/Pool/FormPool'
 
 export default function App() {
 	return (
@@ -24,8 +25,12 @@ export default function App() {
 				<Route path="/ponds">
 					<Route path="" element={<Pond />} />
 					<Route path="/ponds/:hardware_id" element={<PondList />} />
+					<Route
+						path="/ponds/:hardware_id/create"
+						element={<FormPool />}
+					/>
 					<Route path="/ponds/create" element={<FormPonds />} />
-					{/* <Route path="/ponds/edit/:pond_id" element={<FormPonds />} /> */}
+					<Route path="/ponds/edit/:pond_id" element={<FormPonds />} />
 				</Route>
 
 				<Route path="/pools/:hardware_id/:id" element={<Pool />} />

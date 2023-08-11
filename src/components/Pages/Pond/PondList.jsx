@@ -8,14 +8,24 @@ const PondList = () => {
 	const { hardware_id } = useParams()
 	const pond = ponds.find(pond => pond.hardware_id == hardware_id)
 
+	console.log(pond)
+
 	if (error) {
 		return <p>{error}</p>
 	}
-
 	return (
 		<NavbarSidebarLayout isFooter={false}>
-			<div className="px-4 pt-10">
-				<div className="grid-rows-auto grid grid-cols-4 gap-4">
+			<div className="mx-4 mt-10">
+				<div className="flex items-center justify-end">
+					<Link
+						to={`/ponds/${pond?.hardware_id}/create`}
+						type="button"
+						className="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					>
+						Tambah Kolam
+					</Link>
+				</div>
+				<div className="grid-rows-auto mt-10 grid grid-cols-4 gap-4">
 					{loading ? (
 						<p>Loading...</p>
 					) : (
